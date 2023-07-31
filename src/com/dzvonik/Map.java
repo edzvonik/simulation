@@ -1,10 +1,12 @@
 package com.dzvonik;
 
+import javafx.geometry.Pos;
+
 import java.util.HashMap;
 
 public class Map {
 
-    private java.util.Map<Integer[], Character> entities;
+    private java.util.Map<Position, Character> entities;
     private int width = 0;
     private int height = 0;
 
@@ -14,55 +16,53 @@ public class Map {
         entities = initialize();
     }
 
-    private java.util.Map<Integer[], Character> initialize() {
-        java.util.Map<Integer[], Character> entities = new HashMap<>();
+    private java.util.Map<Position, Character> initialize() {
+        java.util.Map<Position, Character> entities = new HashMap<>();
         int size = width * height;
         // grass, rock, tree counters
         int rockCount = (int) Math.round(size * 0.2);
         int treeCount = (int) Math.round(size * 0.2);
         int grassCount = (int) Math.round(size * 0.4);
 
+        // grass
+        for (int i = 0; i < grassCount; i++) {
+            Position randomPosition = getRandomPosition(width, height, entities);
+            entities.put(randomPosition, 'G');
+        }
+
         // rocks
         for (int i = 0; i < rockCount; i++) {
-            Integer[] randomPosition = getRandomPosition(width, height, entities);
+            Position randomPosition = getRandomPosition(width, height, entities);
             entities.put(randomPosition, 'R');
         }
 
         // tries
-        for (int i = 0; i < rockCount; i++) {
-            Integer[] randomPosition = getRandomPosition(width, height, entities);
+        for (int i = 0; i < treeCount; i++) {
+            Position randomPosition = getRandomPosition(width, height, entities);
             entities.put(randomPosition, 'T');
         }
 
-        // grass
-        for (int i = 0; i < rockCount; i++) {
-            Integer[] randomPosition = getRandomPosition(width, height, entities);
-            entities.put(randomPosition, 'G');
-        }
-
-        // System.out.println("rocks: " + rockCount + ", " + "tries: " + treeCount + ", " + "grass: " + grassCount);
+        System.out.println("rocks: " + rockCount + ", " + "tries: " + treeCount + ", " + "grass: " + grassCount);
         return entities;
 
     }
 
-    private Integer[] getRandomPosition(int width, int height, java.util.Map<Integer[], Character> entities) {
-        // Получение случайных координат для позиции объекта на карте
+    private Position getRandomPosition(int width, int height, java.util.Map<Position, Character> entities) {
         int x = (int) (Math.random() * width);
         int y = (int) (Math.random() * height);
 
-        Integer[] position = new Integer[]{x, y};
+        Position position = new Position(x, y);
 
-        // Проверка на занятость ячейки
         while (entities.containsKey(position)) {
             x = (int) (Math.random() * width);
             y = (int) (Math.random() * height);
-            position = new Integer[]{x, y};
+            position = new Position(x, y);
         }
 
         return position;
     }
 
-    public java.util.Map<Integer[], Character> getEntities() {
+    public java.util.Map<Position, Character> getEntities() {
         return entities;
     }
 
