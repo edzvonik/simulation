@@ -1,7 +1,5 @@
 package com.dzvonik;
 
-import javafx.geometry.Pos;
-
 import java.util.HashMap;
 
 public class Map {
@@ -19,6 +17,7 @@ public class Map {
     private java.util.Map<Position, Character> initialize() {
         java.util.Map<Position, Character> entities = new HashMap<>();
         int size = width * height;
+        
         // grass, rock, tree counters
         int rockCount = (int) Math.round(size * 0.2);
         int treeCount = (int) Math.round(size * 0.2);
@@ -42,9 +41,8 @@ public class Map {
             entities.put(randomPosition, 'T');
         }
 
-        System.out.println("rocks: " + rockCount + ", " + "tries: " + treeCount + ", " + "grass: " + grassCount);
+        // System.out.println("rocks: " + rockCount + ", " + "tries: " + treeCount + ", " + "grass: " + grassCount);
         return entities;
-
     }
 
     private Position getRandomPosition(int width, int height, java.util.Map<Position, Character> entities) {
