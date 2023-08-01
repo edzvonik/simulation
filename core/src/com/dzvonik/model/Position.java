@@ -1,4 +1,4 @@
-package com.dzvonik;
+package com.dzvonik.model;
 
 public class Position {
     private int x;
