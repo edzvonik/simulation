@@ -1,7 +1,55 @@
-build
-out
-bin
-.idea
-.gitattributes
-.gradle
-html/war/assets/
+# Gradle specific
+.gradle/
+build/
+.idea/
+gradle/
+!gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.properties
+
+# Compiled output
+core/build/
+desktop/build/
+android/build/
+ios-moe/build/
+html/build/
+lwjgl3/build/
+lwjgl3-robovm/build/
+lwjgl2/build/
+lwjgl3-robovm/build/
+lwjgl2-robovm/build/
+
+# Dependencies
+core/libs/
+desktop/libs/
+android/libs/
+ios/libs/
+ios-moe/libs/
+html/libs/
+lwjgl3/libs/
+lwjgl3-robovm/libs/
+lwjgl2/libs/
+lwjgl3-robovm/libs/
+lwjgl2-robovm/libs/
+
+# Generated
+core/gen/
+desktop/gen/
+android/gen/
+ios-moe/gen/
+html/gen/
+
+# Other generated
+**/bin/
+**/bin/
+**/gen/
+**/out/
+**/build/
+**/gen/
+**/tmp/
+
+# Misc
+**/*.log
+**/logs/
+
+# Local Maven repository
+mavenLocal/
