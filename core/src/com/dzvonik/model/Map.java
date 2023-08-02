@@ -42,8 +42,17 @@ public class Map {
             entities.put(randomPosition, 'T');
         }
 
+        Position randomPosition = getRandomPosition(width, height, entities);
+        entities.put(randomPosition, 'H');
+        randomPosition = getRandomPosition(width, height, entities);
+        entities.put(randomPosition, 'P');
+
         // System.out.println("rocks: " + rockCount + ", " + "tries: " + treeCount + ", " + "grass: " + grassCount);
         return entities;
+    }
+
+    public void update() {
+        entities = initialize();
     }
 
     private Position getRandomPosition(int width, int height, java.util.Map<Position, Character> entities) {
@@ -90,4 +99,5 @@ public class Map {
     public int getHeight() {
         return height;
     }
+
 }

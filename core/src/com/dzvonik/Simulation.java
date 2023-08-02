@@ -2,6 +2,8 @@ package com.dzvonik;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -10,7 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dzvonik.model.Game;
 import com.dzvonik.model.Map;
 
-public class Simulation extends ApplicationAdapter {
+public class Simulation extends ApplicationAdapter implements InputProcessor {
 
 	private int numRows;
 	private int numCols;
@@ -23,6 +25,8 @@ public class Simulation extends ApplicationAdapter {
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
+
+		Gdx.input.setInputProcessor(this);
 
 		numRows = 15;
 		numCols = 15;
@@ -73,7 +77,15 @@ public class Simulation extends ApplicationAdapter {
 						batch.draw(whiteTexture, x, y, width, height);
 						break;
 					case 'T':
-						batch.setColor(Color.BROWN);
+						batch.setColor(Color.FOREST);
+						batch.draw(whiteTexture, x, y, width, height);
+						break;
+					case 'H':
+						batch.setColor(Color.BLUE);
+						batch.draw(whiteTexture, x, y, width, height);
+						break;
+					case 'P':
+						batch.setColor(Color.RED);
 						batch.draw(whiteTexture, x, y, width, height);
 						break;
 					default:
@@ -92,4 +104,65 @@ public class Simulation extends ApplicationAdapter {
 		batch.dispose();
 		whiteTexture.dispose();
 	}
+
+	@Override
+	public boolean keyDown(int keycode) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'keyDown'");
+	}
+
+	@Override
+	public boolean keyUp(int keycode) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'keyUp'");
+	}
+
+	@Override
+	public boolean keyTyped(char character) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'keyTyped'");
+	}
+
+	@Override
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		if (button == Input.Buttons.LEFT) {
+			game.getMap().update();
+			printableMap = game.getMap().getPrintableMap();
+			render();
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'touchUp'");
+	}
+
+	@Override
+	public boolean touchCancelled(int screenX, int screenY, int pointer, int button) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'touchCancelled'");
+	}
+
+	@Override
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'touchDragged'");
+	}
+
+	@Override
+	public boolean mouseMoved(int screenX, int screenY) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'mouseMoved'");
+	}
+
+	@Override
+	public boolean scrolled(float amountX, float amountY) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'scrolled'");
+	}
+
 }

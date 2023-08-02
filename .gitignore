@@ -4,3 +4,4 @@ bin
 .idea
 .gitattributes
 .gradle
+html/war/assets/
