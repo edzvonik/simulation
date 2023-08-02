@@ -1,12 +1,13 @@
-package com.dzvonik;
+package com.dzvonik.model;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class Map {
 
     private java.util.Map<Position, Character> entities;
-    private int width = 0;
-    private int height = 0;
+    private int width;
+    private int height;
 
     public Map(int width, int height) {
         this.width = width;
@@ -41,8 +42,17 @@ public class Map {
             entities.put(randomPosition, 'T');
         }
 
+        Position randomPosition = getRandomPosition(width, height, entities);
+        entities.put(randomPosition, 'H');
+        randomPosition = getRandomPosition(width, height, entities);
+        entities.put(randomPosition, 'P');
+
         // System.out.println("rocks: " + rockCount + ", " + "tries: " + treeCount + ", " + "grass: " + grassCount);
         return entities;
+    }
+
+    public void update() {
+        entities = initialize();
     }
 
     private Position getRandomPosition(int width, int height, java.util.Map<Position, Character> entities) {
@@ -60,6 +70,24 @@ public class Map {
         return position;
     }
 
+    public char[][] getPrintableMap() {
+        char[][] printableMap = new char[height][width];
+    
+        for (int i = 0; i < printableMap.length; i++) {
+            Arrays.fill(printableMap[i], 'O');
+        }
+    
+        for (java.util.Map.Entry<Position, Character> entity : entities.entrySet()) {
+            int x = entity.getKey().getX();
+            int y = entity.getKey().getY();
+            char value = entity.getValue();
+    
+            printableMap[x][y] = value;
+        }
+
+        return printableMap;
+    }
+
     public java.util.Map<Position, Character> getEntities() {
         return entities;
     }
@@ -71,4 +99,5 @@ public class Map {
     public int getHeight() {
         return height;
     }
+
 }
