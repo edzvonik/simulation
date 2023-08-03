@@ -45,8 +45,9 @@ public class Map {
             entities.put(randomPosition, tree);
         }
 
-        // Position randomPosition = getRandomPosition(width, height, entities);
-        // entities.put(randomPosition, 'H');
+        Position randomPosition = getRandomPosition(width, height, entities);
+        Herbivore herbivore = new Herbivore(randomPosition, 10);
+        entities.put(randomPosition, herbivore);
         // randomPosition = getRandomPosition(width, height, entities);
         // entities.put(randomPosition, 'P');
 
@@ -58,7 +59,7 @@ public class Map {
         entities = initialize();
     }
 
-    private Position getRandomPosition(int width, int height, java.util.Map<Position, Entity> entities) {
+    public Position getRandomPosition(int width, int height, java.util.Map<Position, Entity> entities) {
         int x = (int) (Math.random() * width);
         int y = (int) (Math.random() * height);
 
@@ -89,6 +90,19 @@ public class Map {
         }
 
         return printableMap;
+    }
+
+    public boolean checkPositionAvailability(Position position) {
+        String entityName = entities.get(position).getClass().getSimpleName();
+        if (!entityName.equals("Tree") || !entityName.equals("Rock"))
+            return false;
+        return true;
+    }
+
+    public boolean checkMapOutside(Position position) {
+        if (position.getX() < 0 && position.getX() > width && position.getY() < 0 && position.getY() > height)
+            return false;
+        return true;
     }
 
     public java.util.Map<Position, Entity> getEntities() {

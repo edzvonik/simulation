@@ -28,8 +28,8 @@ public class Simulation extends ApplicationAdapter implements InputProcessor {
 
 		Gdx.input.setInputProcessor(this);
 
-		numRows = 15;
-		numCols = 15;
+		numRows = 20;
+		numCols = 20;
 		map = new Map(numCols, numRows); // заменить на width, height
 		game = new Game(map);
 		printableMap = game.getMap().getPrintableMap();
@@ -126,7 +126,9 @@ public class Simulation extends ApplicationAdapter implements InputProcessor {
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		if (button == Input.Buttons.LEFT) {
-			game.getMap().update();
+			game.nextStep();
+		
+			// game.getMap().update();
 			printableMap = game.getMap().getPrintableMap();
 			render();
 			return true;
