@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 public class Map {
 
-    private java.util.Map<Position, Character> entities;
+    private java.util.Map<Position, Entity> entities;
     private int width;
     private int height;
 
@@ -15,8 +15,8 @@ public class Map {
         entities = initialize();
     }
 
-    private java.util.Map<Position, Character> initialize() {
-        java.util.Map<Position, Character> entities = new HashMap<>();
+    private java.util.Map<Position, Entity> initialize() {
+        java.util.Map<Position, Entity> entities = new HashMap<>();
         int size = width * height;
         
         // grass, rock, tree counters
@@ -27,25 +27,28 @@ public class Map {
         // grass
         for (int i = 0; i < grassCount; i++) {
             Position randomPosition = getRandomPosition(width, height, entities);
-            entities.put(randomPosition, 'G');
+            Grass grass = new Grass(randomPosition);
+            entities.put(randomPosition, grass);
         }
 
         // rocks
         for (int i = 0; i < rockCount; i++) {
             Position randomPosition = getRandomPosition(width, height, entities);
-            entities.put(randomPosition, 'R');
+            Rock rock = new Rock(randomPosition);
+            entities.put(randomPosition, rock);
         }
 
         // tries
         for (int i = 0; i < treeCount; i++) {
             Position randomPosition = getRandomPosition(width, height, entities);
-            entities.put(randomPosition, 'T');
+            Tree tree = new Tree(randomPosition);
+            entities.put(randomPosition, tree);
         }
 
-        Position randomPosition = getRandomPosition(width, height, entities);
-        entities.put(randomPosition, 'H');
-        randomPosition = getRandomPosition(width, height, entities);
-        entities.put(randomPosition, 'P');
+        // Position randomPosition = getRandomPosition(width, height, entities);
+        // entities.put(randomPosition, 'H');
+        // randomPosition = getRandomPosition(width, height, entities);
+        // entities.put(randomPosition, 'P');
 
         // System.out.println("rocks: " + rockCount + ", " + "tries: " + treeCount + ", " + "grass: " + grassCount);
         return entities;
@@ -55,7 +58,7 @@ public class Map {
         entities = initialize();
     }
 
-    private Position getRandomPosition(int width, int height, java.util.Map<Position, Character> entities) {
+    private Position getRandomPosition(int width, int height, java.util.Map<Position, Entity> entities) {
         int x = (int) (Math.random() * width);
         int y = (int) (Math.random() * height);
 
@@ -77,10 +80,10 @@ public class Map {
             Arrays.fill(printableMap[i], 'O');
         }
     
-        for (java.util.Map.Entry<Position, Character> entity : entities.entrySet()) {
+        for (java.util.Map.Entry<Position, Entity> entity : entities.entrySet()) {
             int x = entity.getKey().getX();
             int y = entity.getKey().getY();
-            char value = entity.getValue();
+            char value = entity.getValue().getSign();
     
             printableMap[x][y] = value;
         }
@@ -88,7 +91,7 @@ public class Map {
         return printableMap;
     }
 
-    public java.util.Map<Position, Character> getEntities() {
+    public java.util.Map<Position, Entity> getEntities() {
         return entities;
     }
 
