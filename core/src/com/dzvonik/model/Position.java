@@ -1,6 +1,7 @@
 package com.dzvonik.model;
 
 public class Position {
+
     private int x;
     private int y;
 
@@ -34,4 +35,5 @@ public class Position {
         result = 31 * result + y;
         return result;
     }
+    
 }
